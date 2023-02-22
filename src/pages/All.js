@@ -96,6 +96,7 @@ const All = () => {
                             <Task 
                                 key={index} 
                                 task = { task } 
+                                hasActive = {true}
                                 onDeleteTask = { () => handleDeleteTask(index) } 
                                 onActiveTask = {() => handleActiveTask(task, index)}
                                 onCompleteTask = {() => handleCompleteTask(task,index)}

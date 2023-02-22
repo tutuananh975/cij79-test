@@ -30,7 +30,6 @@ function App() {
   }
 
   const handleCompletedTasks = (newTasks) => {
-    console.log('ok')
     localStorage.setItem('completedTasks', JSON.stringify(newTasks));
     setCompletedTasks(newTasks)
   }

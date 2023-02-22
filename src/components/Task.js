@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap"
 
-const Task = ({ task, onDeleteTask, onCompleteTask, onActiveTask }) => {
+const Task = ({ task, onDeleteTask, onCompleteTask, onActiveTask, hasActive }) => {
 
     return (
         <li className="d-flex justify-content-between mt-2">
@@ -9,7 +9,7 @@ const Task = ({ task, onDeleteTask, onCompleteTask, onActiveTask }) => {
                 <p className="ms-2 fs-4">{task}</p>
             </div>  
             <div>
-                <Button className='px-4 me-2' variant="success" onClick = {onActiveTask}>Active</Button>
+                {hasActive && <Button className='px-4 me-2' variant="success" onClick = {onActiveTask}>Active</Button>}
                 <Button 
                     className='px-4' 
                     variant="danger"
