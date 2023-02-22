@@ -1,24 +1,55 @@
-import logo from './logo.svg';
+import { Routes, Route } from 'react-router-dom';
+import { GlobalContext } from './GlobalContext';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Layout from './components/Layout';
+import All from './pages/All';
+import Active from './pages/Active';
+import Completed from './pages/Completed';
+import { useState } from 'react';
+
+
 
 function App() {
+
+  const [activeTasks, setActiveTasks] = useState(() => {
+    return localStorage.getItem('activeTasks')
+      ? JSON.parse(localStorage.getItem('activeTasks'))
+      : []
+  })
+  const [completedTasks, setCompletedTasks] = useState(() => {
+    return localStorage.getItem('completedTasks')
+    ? JSON.parse(localStorage.getItem('completedTasks'))
+    : []
+  })
+
+  const handleActiveTasks = (newTasks) => {
+    localStorage.setItem('activeTasks', JSON.stringify(newTasks));
+    setActiveTasks(newTasks)
+  }
+
+  const handleCompletedTasks = (newTasks) => {
+    console.log('ok')
+    localStorage.setItem('completedTasks', JSON.stringify(newTasks));
+    setCompletedTasks(newTasks)
+  }
+  
+  const value = {
+    activeTasks,
+    handleActiveTasks,
+    completedTasks,
+    handleCompletedTasks
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GlobalContext.Provider value={value}>
+      <Routes>
+        <Route path='/' element={<Layout><All /></Layout>} /> 
+        <Route path='/active' element={<Layout><Active /></Layout>} /> 
+        <Route path='/completed' element={<Layout><Completed /></Layout>} /> 
+      </Routes>
+    </GlobalContext.Provider>
   );
 }
 
